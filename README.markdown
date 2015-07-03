@@ -3,6 +3,10 @@ ArduBlock
 
 ArduBlock is a Block Programming Language for Arduino. The language and functions model closely to [Arduino Language Reference](http://arduino.cc/en/Reference/HomePage)
 
+This repo derives from my privous repo under taweili. Older version can find in taweili's repos.
+
+ArduBlock website is moved to http://ardublock.heqichen.cn
+
 Installation
 ----
 The project is managed by Maven. After checking out the source for the first time, one should run the following to install Arduino's pde.jar into the local repository. 
@@ -34,7 +38,6 @@ copy the target/ardublock-all.jar to Arduino\tools\ArduBlockTool\tool
 
 Authors
 ----
-* David Li taweili@gmail.com
 * HE Qichen heqichen@gmail.com
 
 
