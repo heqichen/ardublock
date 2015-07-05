@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cb:CODEBLOCKS xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://education.mit.edu/openblocks/ns http://education.mit.edu/openblocks/codeblocks.xsd" xmlns:cb="http://education.mit.edu/openblocks/ns">
+<Pages collapsible-pages="yes" drawer-with-page="yes">
+<Page page-color="128 128 128" page-drawer="Main" page-infullview="yes" page-name="Main" page-width="1920">
+<PageBlocks>
+<Block genus-name="pin-read-digital" id="133">
+<Location>
+<X>229</X>
+<Y>55</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="135" connector-kind="plug" connector-type="boolean" init-type="boolean" label="" position-type="single"/>
+</Plug>
+<Sockets num-sockets="1">
+<BlockConnector con-block-id="134" connector-kind="socket" connector-type="number" init-type="number" label="#" position-type="single"/>
+</Sockets>
+</Block>
+<Block genus-name="DuinoEDU_D5" id="134">
+<Location>
+<X>349</X>
+<Y>55</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="133" connector-kind="plug" connector-type="number" init-type="number" label="" position-type="single"/>
+</Plug>
+</Block>
+<Block genus-name="pin-write-digital" id="135">
+<Location>
+<X>87</X>
+<Y>28</Y>
+</Location>
+<BeforeBlockId>132</BeforeBlockId>
+<Sockets num-sockets="2">
+<BlockConnector con-block-id="136" connector-kind="socket" connector-type="number" init-type="number" label="#" position-type="single"/>
+<BlockConnector con-block-id="133" connector-kind="socket" connector-type="boolean" init-type="boolean" label="" position-type="single"/>
+</Sockets>
+</Block>
+<Block genus-name="DuinoEDU_D13" id="136">
+<Location>
+<X>229</X>
+<Y>31</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="135" connector-kind="plug" connector-type="number" init-type="number" label="" position-type="single"/>
+</Plug>
+</Block>
+<Block genus-name="loop" id="132">
+<Location>
+<X>20</X>
+<Y>20</Y>
+</Location>
+<Sockets num-sockets="1">
+<BlockConnector con-block-id="135" connector-kind="socket" connector-type="cmd" init-type="cmd" label="do" position-type="single"/>
+</Sockets>
+</Block>
+</PageBlocks>
+</Page>
+</Pages>
+</cb:CODEBLOCKS>
