@@ -24,8 +24,4 @@ defineTimerRun(Timer1,100)
   
 void setup() { Serial.begin(57600); while (!Serial); mySCoop.start(); }
 void loop()  { Serial.println("do whatever you want here also"); mySCoop.sleep(500); }
-<<<<<<< HEAD
 
-=======
-
->>>>>>> upstream/master

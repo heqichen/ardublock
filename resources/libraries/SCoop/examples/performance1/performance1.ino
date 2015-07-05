@@ -99,8 +99,4 @@ long x,y,z,t;
 void loop()
 { }
 
-<<<<<<< HEAD
 
-=======
-
->>>>>>> upstream/master

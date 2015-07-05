@@ -48,8 +48,4 @@ void loop() {
   increment();
 #endif
 }
-<<<<<<< HEAD
 
-=======
-
->>>>>>> upstream/master
