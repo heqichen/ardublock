@@ -24,7 +24,7 @@ public class ExampleReader
 		
 		try
 		{
-			ResourceBundle uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
+			ResourceBundle exampleNameBundle = ResourceBundle.getBundle("com/ardublock/examples/examples");
 			
 			
 			InputStream exampleConfigInputStream = this.getClass().getResourceAsStream("/com/ardublock/examples/examples.xml");
@@ -57,18 +57,6 @@ public class ExampleReader
 			e.printStackTrace();
 			return ret;
 		}
-		
-		Example e = new Example();
-		e.setName("1. blink");
-		e.setFilename("02-blink.abp");
-		e.setTutorialLink("http://ardublock.heqichen.cn");
-		ret.add(e);
-		
-		e = new Example();
-		e.setName("2. blink");
-		e.setFilename("02-blink.abp");
-		//e.setTutorialLink("http://ardublock.heqichen.cn");
-		ret.add(e);
 		
 		return ret;
 		

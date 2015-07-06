@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exampleList>
 	<example>
-		<name>01-empty</name>
+		<name>exa.01.empty</name>
 		<filename>01-empty.abp</filename>
-		<link>http://ardublock.heqichen.cn/blog/tutorial/empty/</link>
 	</example>
+
+	<example>
+		<name>exa.02.blink</name>
+		<filename>02-blink.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/blink/</link>
+	</example>
+
+	<example>
+		<name>exa.03.random</name>
+		<filename>03-random.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/random-blink/</link>
+	</example>
+
+	<example>
+		<name>exa.04.fade</name>
+		<filename>04-fade.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/fade/</link>
+	</example>
+
+	<example>
+		<name>exa.05.voltage</name>
+		<filename>05-voltage.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/voltage/</link>
+	</example>
+
+	<example>
+		<name>exa.06.potential</name>
+		<filename>06-potential.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/potential-meter/</link>
+	</example>
+
+	<example>
+		<name>exa.07.button</name>
+		<filename>07-button.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/button/</link>
+	</example>
+
+	<example>
+		<name>exa.08.scoop-switch</name>
+		<filename>08-scoop-switch.abp</filename>
+		<link>http://ardublock.heqichen.cn/blog/tutorial/scoop-switch/</link>
+	</example>
+
 </exampleList>
