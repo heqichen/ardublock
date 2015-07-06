@@ -287,6 +287,16 @@ public class Context
 		}
 	}
 	
+	public void loadArdublockExample(String filename) throws IOException
+	{
+		saveFilePath = null;
+		saveFileName = "untitled";
+		String pathName = "/com/ardublock/examples/" + filename;
+		workspaceController.resetWorkspace();
+		InputStream is = this.getClass().getResourceAsStream(pathName);
+		workspaceController.loadProjectFromInputStream(is);
+	}
+	
 	public void setEditor(Editor e) {
 		editor = e;
 	}

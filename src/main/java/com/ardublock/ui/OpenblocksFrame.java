@@ -99,8 +99,6 @@ public class OpenblocksFrame extends JFrame
 		tutorialMenu.add(renderExapmleMenu());
 		menuBar.add(tutorialMenu);
 		
-		
-		
 		this.setJMenuBar(menuBar);
 	}
 	
@@ -114,10 +112,10 @@ public class OpenblocksFrame extends JFrame
 			JMenu menu = new JMenu(e.getName());
 			JMenuItem filenameItem = new JMenuItem(e.getFilename());
 			menu.add(filenameItem);
-			filenameItem.addActionListener(new ActionListener(){
+			filenameItem.addActionListener(new ActionListenerWithString(e.getFilename()){
 
 				public void actionPerformed(ActionEvent arg0) {
-					System.out.println("abc");
+					openArdublockExample(this.getStr());
 				}
 				
 			});
@@ -269,6 +267,54 @@ public class OpenblocksFrame extends JFrame
 		}
 		this.setTitle(makeFrameTitle());
 	}
+	
+	public void openArdublockExample(String fileName)
+	{
+		if (context.isWorkspaceChanged())
+		{
+			int optionValue = JOptionPane.showOptionDialog(this, uiMessageBundle.getString("message.content.open_unsaved"), uiMessageBundle.getString("message.title.question"), JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.YES_OPTION);
+			if (optionValue == JOptionPane.YES_OPTION)
+			{
+				doSaveArduBlockFile();
+				this.doOpenArdublockExample(fileName);
+			}
+			else
+			{
+				if (optionValue == JOptionPane.NO_OPTION)
+				{
+					this.doOpenArdublockExample(fileName);
+				}
+			}
+		}
+		else
+		{
+			this.doOpenArdublockExample(fileName);
+		}
+		this.setTitle(makeFrameTitle());
+	}
+	
+	private void doOpenArdublockExample(String filename)
+	{
+		context.setWorkspaceChanged(false);
+		this.setTitle(this.makeFrameTitle());
+		this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		try
+		{
+			context.loadArdublockExample(filename);
+		}
+		catch (IOException e)
+		{
+			JOptionPane.showOptionDialog(this, uiMessageBundle.getString("message.file_not_found"), uiMessageBundle.getString("message.title.error"), JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, null, JOptionPane.OK_OPTION);
+			e.printStackTrace();
+		}
+		finally
+		{
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		}
+	}
+
+	
+	
 	
 	private void loadFile()
 	{
