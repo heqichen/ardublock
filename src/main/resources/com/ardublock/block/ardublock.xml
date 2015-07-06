@@ -9297,8 +9297,8 @@
 	</Pages>
 
 	<TrashCan>
-		<OpenTrashImage>com/ardublock/block/trash_open.png</OpenTrashImage>
-		<ClosedTrashImage>com/ardublock/block/trash.png</ClosedTrashImage>
+		<OpenTrashImage>/com/ardublock/block/trash_open.png</OpenTrashImage>
+		<ClosedTrashImage>/com/ardublock/block/trash.png</ClosedTrashImage>
 	</TrashCan>
 
 </BlockLangDef>
