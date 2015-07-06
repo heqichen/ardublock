@@ -31,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.ardublock.core.Context;
 import com.ardublock.core.Example;
 import com.ardublock.core.ExampleReader;
+import com.ardublock.ui.listener.ActionListenerWithString;
 import com.ardublock.ui.listener.ArdublockWorkspaceListener;
 import com.ardublock.ui.listener.GenerateCodeButtonListener;
 import com.ardublock.ui.listener.NewButtonListener;
@@ -113,10 +114,34 @@ public class OpenblocksFrame extends JFrame
 			JMenu menu = new JMenu(e.getName());
 			JMenuItem filenameItem = new JMenuItem(e.getFilename());
 			menu.add(filenameItem);
+			filenameItem.addActionListener(new ActionListener(){
+
+				public void actionPerformed(ActionEvent arg0) {
+					System.out.println("abc");
+				}
+				
+			});
 			
 			if (e.getTutorialLink() != null && !e.getTutorialLink().isEmpty())
 			{
 				JMenuItem linkItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.examplelink"));
+				linkItem.addActionListener(new ActionListenerWithString(e.getTutorialLink()) {
+
+					public void actionPerformed(ActionEvent e) {
+						Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+					    URL url;
+					    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+					        try {
+								url = new URL(this.getStr());
+					            desktop.browse(url.toURI());
+					        } catch (Exception e1) {
+					            e1.printStackTrace();
+					        }
+					    }
+						
+					}
+					
+				});
 				menu.add(linkItem);
 			}
 			
