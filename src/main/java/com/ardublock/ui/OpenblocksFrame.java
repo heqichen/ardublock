@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -21,12 +22,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.ardublock.core.Context;
+import com.ardublock.core.Example;
+import com.ardublock.core.ExampleReader;
 import com.ardublock.ui.listener.ArdublockWorkspaceListener;
 import com.ardublock.ui.listener.GenerateCodeButtonListener;
 import com.ardublock.ui.listener.NewButtonListener;
@@ -102,6 +106,23 @@ public class OpenblocksFrame extends JFrame
 	private JMenu renderExapmleMenu()
 	{
 		JMenu exampleMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.examples"));
+		ExampleReader exampleReader = new ExampleReader();
+		List<Example> exampleList = exampleReader.getExampleList();
+		for (Example e : exampleList)
+		{
+			JMenu menu = new JMenu(e.getName());
+			JMenuItem filenameItem = new JMenuItem(e.getFilename());
+			menu.add(filenameItem);
+			
+			if (e.getTutorialLink() != null && !e.getTutorialLink().isEmpty())
+			{
+				JMenuItem linkItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.examplelink"));
+				menu.add(linkItem);
+			}
+			
+			exampleMenu.add(menu);
+			
+		}
 		return exampleMenu;
 	}
 	
