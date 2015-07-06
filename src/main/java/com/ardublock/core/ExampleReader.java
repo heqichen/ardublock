@@ -39,7 +39,7 @@ public class ExampleReader
 			{
 				Element elem = (Element)exampleList.item(i);
 				Example e = new Example();
-				e.setName(elem.getElementsByTagName("name").item(0).getTextContent());
+				e.setName(exampleNameBundle.getString((elem.getElementsByTagName("name").item(0).getTextContent())));
 				e.setFilename(elem.getElementsByTagName("filename").item(0).getTextContent());
 				
 				NodeList linkList = elem.getElementsByTagName("link");
