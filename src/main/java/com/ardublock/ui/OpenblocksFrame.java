@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
@@ -84,6 +86,14 @@ public class OpenblocksFrame extends JFrame
 		fileChooser.addChoosableFileFilter(ffilter);
 		
 		initOpenBlocks();
+		
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
+		tutorialMenu.addSeparator();
+		menuBar.add(tutorialMenu);
+		
+		this.setJMenuBar(menuBar);
 	}
 	
 	private void initOpenBlocks()
