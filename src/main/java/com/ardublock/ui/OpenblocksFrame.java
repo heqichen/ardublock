@@ -32,6 +32,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.ardublock.core.Context;
 import com.ardublock.core.Example;
 import com.ardublock.core.ExampleReader;
+import com.ardublock.core.Updater;
 import com.ardublock.ui.listener.ActionListenerWithString;
 import com.ardublock.ui.listener.ArdublockWorkspaceListener;
 import com.ardublock.ui.listener.GenerateCodeButtonListener;
@@ -55,6 +56,7 @@ public class OpenblocksFrame extends JFrame
 	private Context context;
 	private JFileChooser fileChooser;
 	private FileFilter ffilter;
+	private Updater updater;
 	
 	private ResourceBundle uiMessageBundle;
 	
@@ -91,6 +93,8 @@ public class OpenblocksFrame extends JFrame
 		fileChooser.setFileFilter(ffilter);
 		fileChooser.addChoosableFileFilter(ffilter);
 		
+		updater = new Updater();
+		
 		initOpenBlocks();
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -108,6 +112,9 @@ public class OpenblocksFrame extends JFrame
 		menuBar.add(helpMenu);
 		
 		this.setJMenuBar(menuBar);
+		
+		//TODO check update
+		
 	}
 	
 	private void renderHelpMenu(JMenu helpMenu)
@@ -115,13 +122,22 @@ public class OpenblocksFrame extends JFrame
 
 		
 		JMenuItem checkUpdateItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.checkupdate"));
+		checkUpdateItem.addActionListener(new ActionListener()
+		{
+
+			public void actionPerformed(ActionEvent arg0)
+			{
+				updater.startCheck("click-in-menu");
+			}
+			
+		});
 		helpMenu.add(checkUpdateItem);
 				
 		JMenuItem aboutItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.about"));
 		aboutItem.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0)
+			{
 				
 			}
 		});
@@ -140,7 +156,8 @@ public class OpenblocksFrame extends JFrame
 			menu.add(filenameItem);
 			filenameItem.addActionListener(new ActionListenerWithString(e.getFilename()){
 
-				public void actionPerformed(ActionEvent arg0) {
+				public void actionPerformed(ActionEvent arg0)
+				{
 					openArdublockExample(this.getStr());
 				}
 				

@@ -3,11 +3,13 @@ package com.ardublock.core;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -29,29 +31,48 @@ public class Updater
 		machineId = getMachineId();
 		lang = getLocale();
 		
-		queryUrl = "http://ardublock.heqichen.cn/version.php?mid=" + machineId + "&v=" + internalVersion + "&os=" + os + "&lang=" + lang;
+		try {
+			queryUrl = "http://ardublock.heqichen.cn/version.php?mid=";
+			queryUrl += URLEncoder.encode(machineId, "UTF-8");
+			queryUrl += "&v=";
+			queryUrl += String.valueOf(internalVersion);
+			queryUrl += "&os=";
+			queryUrl += URLEncoder.encode(os, "UTF-8");
+			queryUrl += "&lang=";
+			queryUrl += URLEncoder.encode(lang, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void startCheck(String action) throws IOException
+	public void startCheck(String action)
 	{
-		
-		URL url = new URL(queryUrl + "&action=" + action);
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", "ardublock");
-		int responseCode = con.getResponseCode();
-		
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
+		try
+		{
+			URL url = new URL(queryUrl + "&action=" + action);
+			System.out.println(url.toString());
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("User-Agent", "ardublock");
+			int responseCode = con.getResponseCode();
+			
+			BufferedReader in = new BufferedReader(
+			        new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	 
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			
+			in.close();
+			System.out.println(response.toString());
 		}
-		
-		in.close();
-		System.out.println(response.toString());
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		
 	}
 	
