@@ -1,6 +1,8 @@
 package com.ardublock.ui;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
@@ -30,38 +32,57 @@ public class AboutDialog extends JDialog
 		
 		super(parentFrame, "About Dialog", true);
 		
-		
 		uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
 		
 		Box b = Box.createVerticalBox();
+		
 		b.add(Box.createGlue());
 		
 		JLabel title = new JLabel("<html><h1><center>ArduBlock</center></h1></html>");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font(title.getFont().getName(), Font.BOLD, 30));
 		b.add(title);
+		b.add(Box.createGlue());
 		
+		Box versionWrap = Box.createHorizontalBox();
+		versionWrap.add(Box.createGlue());
 	    JLabel version = new JLabel(uiMessageBundle.getString("ardublock.ui.version"));
 	    version.setHorizontalAlignment(SwingConstants.RIGHT);
-	    b.add(version);
-		
-		b.add(new JLabel("By Java source and support"));
-		b.add(new JLabel("At www.java2s.com"));
+	    b.setSize(250, 30);
+	    versionWrap.add(version);
+	    b.add(versionWrap);
+	    
+	    JLabel description = new JLabel("<html>"+ uiMessageBundle.getString("ardublock.ui.description") +"</html>");
+	    description.setPreferredSize(new Dimension(300, 200));
+		b.add(description);
 		b.add(Box.createGlue());
-		getContentPane().add(b, "Center");
 		
-		JPanel p2 = new JPanel();
-		JButton ok = new JButton("Ok");
-		p2.add(ok);
-		getContentPane().add(p2, "South");
+		b.add(new JLabel("http://ardublock.heqichen.cn/"));
+		b.add(Box.createGlue());
 		
-		ok.addActionListener(new ActionListener() {
-		  public void actionPerformed(ActionEvent evt) {
-		    setVisible(false);
-		  }
-		});
+		JPanel textPanel = new JPanel();
+		textPanel.add(b);
 		
-		setSize(250, 150);
+		getContentPane().add(textPanel, "North");
+		
+		JPanel buttonPanel = new JPanel();
+		
+		
+		JButton websiteButton = new JButton(uiMessageBundle.getString("ardublock.ui.website"));
+		buttonPanel.add(websiteButton);
+		
+		JButton updateButton = new JButton(uiMessageBundle.getString("ardublock.ui.checkupdate"));
+		buttonPanel.add(updateButton);
+		
+		JButton closeButton = new JButton(uiMessageBundle.getString("ardublock.ui.close"));
+		buttonPanel.add(closeButton);
+		
+		getContentPane().add(buttonPanel, "South");
+		
+		setSize(400, 380);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+
 	}
 	
 }
