@@ -102,6 +102,62 @@ public class Updater
 		t.start();
 	}
 	
+	public void startCheckSync(final String action, final JFrame parentFrame)
+	{
+		try
+		{
+			String result = Updater.this.checkUpdate(action);
+			if (!result.equals("updated") && !result.equals("error"))
+			{
+				Object[] options = 
+				{
+					uiMessageBundle.getString("ardublock.ui.gotodownloadpage"), 
+					uiMessageBundle.getString("ardublock.ui.dontdownload")
+				};
+				int userSel = JOptionPane.showOptionDialog(parentFrame, 
+						MessageFormat.format(uiMessageBundle.getString("ardublock.ui.update.available"), result),
+						uiMessageBundle.getString("ardublock.ui.update.title"), 
+						JOptionPane.YES_NO_OPTION, 
+						JOptionPane.INFORMATION_MESSAGE, 
+						null, 
+						options, 
+						options[1]);
+				if (userSel == 0)
+				{
+					Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+				    URL url;
+				    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+				        try {
+							url = new URL("http://ardublock.heqichen.cn/blog/download/");
+				            desktop.browse(url.toURI());
+				        } catch (Exception e1) {
+				            e1.printStackTrace();
+				        }
+				    }
+				}
+			}
+			else
+			{
+				if (result.equals("updated"))
+				{
+					JOptionPane.showMessageDialog(
+							parentFrame, 
+							uiMessageBundle.getString("ardublock.ui.update.updated"), 
+							uiMessageBundle.getString("ardublock.ui.update.title"), 
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			JOptionPane.showMessageDialog(
+					parentFrame, 
+					uiMessageBundle.getString("ardublock.ui.update.error"), 
+					uiMessageBundle.getString("ardublock.ui.error"), 
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	private String checkUpdate(String action) throws IOException
 	{
 		URL url = new URL(queryUrl + "&action=" + action);

@@ -127,7 +127,7 @@ public class OpenblocksFrame extends JFrame
 
 			public void actionPerformed(ActionEvent arg0)
 			{
-				//updater.startCheck("click-in-menu");
+				OpenblocksFrame.this.updater.startCheckSync("click-in-menu", OpenblocksFrame.this);
 			}
 			
 		});
