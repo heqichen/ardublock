@@ -95,10 +95,16 @@ public class OpenblocksFrame extends JFrame
 		
 		JMenuBar menuBar = new JMenuBar();
 		
-		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
 		
+		//tutorial menu
+		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
 		tutorialMenu.add(renderExapmleMenu());
+		
+		//Help menu
+		JMenu helpMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.help"));
+		
 		menuBar.add(tutorialMenu);
+		menuBar.add(helpMenu);
 		
 		this.setJMenuBar(menuBar);
 	}
