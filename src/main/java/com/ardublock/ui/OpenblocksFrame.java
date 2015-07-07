@@ -57,6 +57,7 @@ public class OpenblocksFrame extends JFrame
 	private JFileChooser fileChooser;
 	private FileFilter ffilter;
 	private Updater updater;
+	private AboutDialog aboutDialog;
 	
 	private ResourceBundle uiMessageBundle;
 	
@@ -94,6 +95,7 @@ public class OpenblocksFrame extends JFrame
 		fileChooser.addChoosableFileFilter(ffilter);
 		
 		updater = new Updater();
+		aboutDialog = new AboutDialog(this, updater);
 		
 		initOpenBlocks();
 		
@@ -138,7 +140,7 @@ public class OpenblocksFrame extends JFrame
 		{
 			public void actionPerformed(ActionEvent arg0)
 			{
-				
+				aboutDialog.setVisible(true);
 			}
 		});
 		helpMenu.add(aboutItem);
