@@ -14,6 +14,9 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Updater
 {
 	
@@ -46,43 +49,66 @@ public class Updater
 		}
 	}
 	
-	public void startCheck(String action)
+	public void startCheck(final String action, final JFrame parentFrame)
 	{
-		try
+		Thread t = new Thread(new Runnable()
 		{
-			URL url = new URL(queryUrl + "&action=" + action);
-			System.out.println(url.toString());
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("User-Agent", "ardublock");
-			int responseCode = con.getResponseCode();
-			
-			BufferedReader in = new BufferedReader(
-			        new InputStreamReader(con.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-	 
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
+			public void run()
+			{
+				try
+				{
+					String result = Updater.this.checkUpdate(action);
+					if (result.equals("updated"))
+					{
+						//already new
+					}
+					else
+					{
+						Object[] options = {"go to download page", "No"};
+						int userSel = JOptionPane.showOptionDialog(parentFrame, 
+								"message", 
+								"title", 
+								JOptionPane.YES_NO_OPTION, 
+								JOptionPane.INFORMATION_MESSAGE, 
+								null, 
+								options, 
+								options[1]);
+						System.out.println(userSel);
+						
+					}
+				}
+				catch (IOException e)
+				{
+					
+				}
+				
 			}
 			
-			in.close();
-			System.out.println(response.toString());
-		}
-		catch (IOException e)
+		});
+		t.start();
+	}
+	
+	private String checkUpdate(String action) throws IOException
+	{
+		URL url = new URL(queryUrl + "&action=" + action);
+		System.out.println(url.toString());
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+		con.setRequestMethod("GET");
+		con.setRequestProperty("User-Agent", "ardublock");
+		int responseCode = con.getResponseCode();
+		
+		BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+ 
+		while ((inputLine = in.readLine()) != null)
 		{
-			e.printStackTrace();
+			response.append(inputLine);
 		}
 		
+		in.close();
+		return response.toString();
 	}
-	
-	public static void main(String args[]) throws Exception
-	{
-		Updater u = new Updater();
-		u.startCheck("test");
-	}
-	
-	
 	
 	
 	private String getOsInfo()

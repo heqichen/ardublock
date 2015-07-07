@@ -113,7 +113,7 @@ public class OpenblocksFrame extends JFrame
 		
 		this.setJMenuBar(menuBar);
 		
-		//TODO check update
+		updater.startCheck("startup", this);
 		
 	}
 	
@@ -127,7 +127,7 @@ public class OpenblocksFrame extends JFrame
 
 			public void actionPerformed(ActionEvent arg0)
 			{
-				updater.startCheck("click-in-menu");
+				//updater.startCheck("click-in-menu");
 			}
 			
 		});
