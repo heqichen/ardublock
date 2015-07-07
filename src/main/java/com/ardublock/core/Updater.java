@@ -1,13 +1,9 @@
 package com.ardublock.core;
 
-import java.net.InetAddress;
-import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Updater
@@ -15,9 +11,15 @@ public class Updater
 	public static void main(String args[]) throws Exception
 	{
 		ResourceBundle uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
+		
+		int internalVersion = Integer.parseInt(uiMessageBundle.getString("ardublock.ui.version-internal"));
+		
+		
 		Updater u = new Updater();
 		System.out.println(u.getOsInfo());
 		System.out.println(u.getMachineId());
+		System.out.println(internalVersion);
+		System.out.println(u.getLocale());
 	}
 	
 	private String getOsInfo()
@@ -54,6 +56,12 @@ public class Updater
 		}
 		
 		return mid;
+	}
+	
+	private String getLocale()
+	{
+		Locale locale = Locale.getDefault();
+		return locale.toString();
 	}
 	
 }
