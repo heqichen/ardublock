@@ -102,11 +102,18 @@ public class OpenblocksFrame extends JFrame
 		
 		//Help menu
 		JMenu helpMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.help"));
+		renderHelpMenu(helpMenu);
 		
 		menuBar.add(tutorialMenu);
 		menuBar.add(helpMenu);
 		
 		this.setJMenuBar(menuBar);
+	}
+	
+	private void renderHelpMenu(JMenu helpMenu)
+	{
+		JMenuItem aboutItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.about"));
+		helpMenu.add(aboutItem);
 	}
 	
 	private JMenu renderExapmleMenu()
