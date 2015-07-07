@@ -51,6 +51,36 @@ public class Updater
 		}
 	}
 	
+	private void showDownloadAvailabeDialog(JFrame parentFrame, String newVersionName)
+	{
+		Object[] options = 
+		{
+			uiMessageBundle.getString("ardublock.ui.gotodownloadpage"), 
+			uiMessageBundle.getString("ardublock.ui.dontdownload")
+		};
+		int userSel = JOptionPane.showOptionDialog(parentFrame, 
+				MessageFormat.format(uiMessageBundle.getString("ardublock.ui.update.available"), newVersionName),
+				uiMessageBundle.getString("ardublock.ui.update.title"), 
+				JOptionPane.YES_NO_OPTION, 
+				JOptionPane.INFORMATION_MESSAGE, 
+				null, 
+				options, 
+				options[1]);
+		if (userSel == 0)
+		{
+			Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		    URL url;
+		    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+		        try {
+					url = new URL("http://ardublock.heqichen.cn/blog/download/");
+		            desktop.browse(url.toURI());
+		        } catch (Exception e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		}
+	}
+	
 	public void startCheck(final String action, final JFrame parentFrame)
 	{
 		Thread t = new Thread(new Runnable()
@@ -62,33 +92,7 @@ public class Updater
 					String result = Updater.this.checkUpdate(action);
 					if (!result.equals("updated") && !result.equals("error"))
 					{
-						Object[] options = 
-						{
-							uiMessageBundle.getString("ardublock.ui.gotodownloadpage"), 
-							uiMessageBundle.getString("ardublock.ui.dontdownload")
-						};
-						int userSel = JOptionPane.showOptionDialog(parentFrame, 
-								MessageFormat.format(uiMessageBundle.getString("ardublock.ui.update.available"), result),
-								uiMessageBundle.getString("ardublock.ui.update.title"), 
-								JOptionPane.YES_NO_OPTION, 
-								JOptionPane.INFORMATION_MESSAGE, 
-								null, 
-								options, 
-								options[1]);
-						if (userSel == 0)
-						{
-							Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-						    URL url;
-						    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-						        try {
-									url = new URL("http://ardublock.heqichen.cn/blog/download/");
-						            desktop.browse(url.toURI());
-						        } catch (Exception e1) {
-						            e1.printStackTrace();
-						        }
-						    }
-						}
-							
+						showDownloadAvailabeDialog(parentFrame, result);	
 					}
 				}
 				catch (IOException e)
@@ -109,32 +113,7 @@ public class Updater
 			String result = Updater.this.checkUpdate(action);
 			if (!result.equals("updated") && !result.equals("error"))
 			{
-				Object[] options = 
-				{
-					uiMessageBundle.getString("ardublock.ui.gotodownloadpage"), 
-					uiMessageBundle.getString("ardublock.ui.dontdownload")
-				};
-				int userSel = JOptionPane.showOptionDialog(parentFrame, 
-						MessageFormat.format(uiMessageBundle.getString("ardublock.ui.update.available"), result),
-						uiMessageBundle.getString("ardublock.ui.update.title"), 
-						JOptionPane.YES_NO_OPTION, 
-						JOptionPane.INFORMATION_MESSAGE, 
-						null, 
-						options, 
-						options[1]);
-				if (userSel == 0)
-				{
-					Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-				    URL url;
-				    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-				        try {
-							url = new URL("http://ardublock.heqichen.cn/blog/download/");
-				            desktop.browse(url.toURI());
-				        } catch (Exception e1) {
-				            e1.printStackTrace();
-				        }
-				    }
-				}
+				showDownloadAvailabeDialog(parentFrame, result);
 			}
 			else
 			{
@@ -150,6 +129,7 @@ public class Updater
 		}
 		catch (IOException e)
 		{
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(
 					parentFrame, 
 					uiMessageBundle.getString("ardublock.ui.update.error"), 
