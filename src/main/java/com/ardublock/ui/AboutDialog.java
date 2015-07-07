@@ -1,10 +1,12 @@
 package com.ardublock.ui;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.swing.Box;
@@ -26,7 +28,7 @@ public class AboutDialog extends JDialog
 	private ResourceBundle uiMessageBundle;
 	private static final long serialVersionUID = -8860041467043037212L;
 	
-	public AboutDialog(JFrame parentFrame, Updater updater)
+	public AboutDialog(JFrame parentFrame, final Updater updater)
 	{
 		
 		
@@ -70,18 +72,53 @@ public class AboutDialog extends JDialog
 		
 		JButton websiteButton = new JButton(uiMessageBundle.getString("ardublock.ui.website"));
 		buttonPanel.add(websiteButton);
+		websiteButton.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+			    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+			    URL url;
+			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			        try {
+						url = new URL("http://ardublock.heqichen.cn");
+			            desktop.browse(url.toURI());
+			        } catch (Exception e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			}
+		});
+		
 		
 		JButton updateButton = new JButton(uiMessageBundle.getString("ardublock.ui.checkupdate"));
 		buttonPanel.add(updateButton);
+		updateButton.addActionListener(new ActionListener()
+		{
+
+			public void actionPerformed(ActionEvent arg0)
+			{
+				updater.startCheckSync("click-in-about", null);
+			}
+			
+		});
+		
 		
 		JButton closeButton = new JButton(uiMessageBundle.getString("ardublock.ui.close"));
 		buttonPanel.add(closeButton);
-		
+		closeButton.addActionListener(new ActionListener()
+		{
+
+			public void actionPerformed(ActionEvent arg0)
+			{
+				setVisible(false);
+			}
+			
+		});
+
 		getContentPane().add(buttonPanel, "South");
 		
 		setSize(400, 380);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 
 	}
 	
