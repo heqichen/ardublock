@@ -112,7 +112,19 @@ public class OpenblocksFrame extends JFrame
 	
 	private void renderHelpMenu(JMenu helpMenu)
 	{
+
+		
+		JMenuItem checkUpdateItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.checkupdate"));
+		helpMenu.add(checkUpdateItem);
+				
 		JMenuItem aboutItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.about"));
+		aboutItem.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+			}
+		});
 		helpMenu.add(aboutItem);
 	}
 	
