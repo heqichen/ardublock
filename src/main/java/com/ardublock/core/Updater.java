@@ -1,5 +1,6 @@
 package com.ardublock.core;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -62,18 +64,31 @@ public class Updater
 					{
 						Object[] options = 
 						{
-							"go to download page", 
-							"No"
+							uiMessageBundle.getString("ardublock.ui.gotodownloadpage"), 
+							uiMessageBundle.getString("ardublock.ui.dontdownload")
 						};
 						int userSel = JOptionPane.showOptionDialog(parentFrame, 
-								"message", 
-								"title", 
+								MessageFormat.format(uiMessageBundle.getString("ardublock.ui.update.available"), result),
+								uiMessageBundle.getString("ardublock.ui.update.title"), 
 								JOptionPane.YES_NO_OPTION, 
 								JOptionPane.INFORMATION_MESSAGE, 
 								null, 
 								options, 
 								options[1]);
-						System.out.println(userSel);
+						if (userSel == 0)
+						{
+							Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+						    URL url;
+						    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+						        try {
+									url = new URL("http://ardublock.heqichen.cn/blog/download/");
+						            desktop.browse(url.toURI());
+						        } catch (Exception e1) {
+						            e1.printStackTrace();
+						        }
+						    }
+						}
+							
 					}
 				}
 				catch (IOException e)
