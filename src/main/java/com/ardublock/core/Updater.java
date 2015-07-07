@@ -58,13 +58,13 @@ public class Updater
 				try
 				{
 					String result = Updater.this.checkUpdate(action);
-					if (result.equals("updated"))
+					if (!result.equals("updated") && !result.equals("error"))
 					{
-						//already new
-					}
-					else
-					{
-						Object[] options = {"go to download page", "No"};
+						Object[] options = 
+						{
+							"go to download page", 
+							"No"
+						};
 						int userSel = JOptionPane.showOptionDialog(parentFrame, 
 								"message", 
 								"title", 
@@ -74,7 +74,6 @@ public class Updater
 								options, 
 								options[1]);
 						System.out.println(userSel);
-						
 					}
 				}
 				catch (IOException e)
@@ -107,7 +106,15 @@ public class Updater
 		}
 		
 		in.close();
-		return response.toString();
+		if (responseCode == 200)
+		{
+			return response.toString().trim();
+		}
+		else
+		{
+			return "error";
+		}
+		
 	}
 	
 	
