@@ -40,8 +40,6 @@ public class Context
 	public final static String ARDUINO_VERSION_UNKNOWN = "unknown";
 	public final boolean isNeedAutoFormat = true;
 	
-	private static Context singletonContext;
-	
 	private boolean workspaceChanged;
 	private boolean workspaceEmpty;
 	
@@ -51,7 +49,8 @@ public class Context
 	private String arduinoVersionString = ARDUINO_VERSION_UNKNOWN;
 	private OsType osType; 
 	private Configuration config;
-
+	private ResourceBundle uiMessageBundle;
+	
 	final public static String APP_NAME = "ArduBlock";
 	
 	private Editor editor;
@@ -88,6 +87,8 @@ public class Context
 	private WorkspaceController workspaceController;
 	private Workspace workspace;
 	
+	
+	
 	Context(boolean isInArduino)
 	{
 		workspaceController = new WorkspaceController();
@@ -103,6 +104,12 @@ public class Context
 		osType = determineOsType();
 		
 		config = new Configuration(this);
+		uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
+	}
+	
+	public String getAppName()
+	{
+		return APP_NAME + " (" + uiMessageBundle.getString("ardublock.ui.version") + ")";
 	}
 	
 	public Configuration getConfiguration()

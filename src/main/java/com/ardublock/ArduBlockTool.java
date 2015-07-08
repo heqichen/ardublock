@@ -81,9 +81,7 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 
 	public String getMenuTitle()
 	{
-		editorChanged();
-		return Context.APP_NAME;
-		
+		return context.getAppName();
 	}
 
 	public void didSave()
