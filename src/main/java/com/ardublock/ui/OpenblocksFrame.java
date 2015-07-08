@@ -312,6 +312,20 @@ public class OpenblocksFrame extends JFrame
 		
 		JMenu arduinoMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.arduino"));
 		
+		JMenuItem generateItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.upload"));
+		generateItem.addActionListener(new GenerateCodeButtonListener(this, context));
+		generateItem.setAccelerator(KeyStroke.getKeyStroke('U', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		arduinoMenu.add(generateItem);
+		
+		JMenuItem serialItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.serialMonitor"));
+		serialItem.setAccelerator(KeyStroke.getKeyStroke('M', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		serialItem.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				context.getEditor().handleSerial();
+			}
+		});
+		arduinoMenu.add(serialItem);
+		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
 		tutorialMenu.add(renderExapmleMenu());
