@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.ardublock.ui.ConsoleFrame;
+import com.ardublock.ui.MessageDialog;
 import com.ardublock.ui.OpenblocksFrame;
 
 public class Main
@@ -35,6 +36,9 @@ public class Main
 		//openblocksFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		openblocksFrame.setVisible(true);
+		
+		MessageDialog d = new MessageDialog(openblocksFrame);
+		d.show();
 	}
 
 	public void shutdown()

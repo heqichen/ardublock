@@ -105,6 +105,7 @@ public class OpenblocksFrame extends JFrame
 		
 		updater.startCheck("startup", this);
 		
+		
 	}
 	
 	private void renderHelpMenu(JMenu helpMenu)

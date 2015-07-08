@@ -3,7 +3,6 @@ package com.ardublock.ui;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -35,6 +34,7 @@ public class AboutDialog extends JDialog
 		super(parentFrame, "About Dialog", true);
 		
 		uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
+		this.setTitle(uiMessageBundle.getString("ardublock.ui.about"));
 		
 		Box b = Box.createVerticalBox();
 		
@@ -116,9 +116,8 @@ public class AboutDialog extends JDialog
 		getContentPane().add(buttonPanel, "South");
 		
 		setSize(400, 380);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocationRelativeTo(null);
-		
+		this.setResizable(false);
 
 	}
 	
