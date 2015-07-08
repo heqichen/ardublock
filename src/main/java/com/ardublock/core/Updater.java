@@ -111,7 +111,7 @@ public class Updater
 		try
 		{
 			String result = Updater.this.checkUpdate(action);
-			if (!result.equals("updated") && !result.equals("error"))
+			if (result!=null && !result.equals("updated"))
 			{
 				showDownloadAvailabeDialog(parentFrame, result);
 			}
@@ -140,32 +140,7 @@ public class Updater
 	
 	private String checkUpdate(String action) throws IOException
 	{
-		URL url = new URL(queryUrl + "&action=" + action);
-		System.out.println(url.toString());
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", "ardublock");
-		int responseCode = con.getResponseCode();
-		
-		BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null)
-		{
-			response.append(inputLine);
-		}
-		
-		in.close();
-		if (responseCode == 200)
-		{
-			return response.toString().trim();
-		}
-		else
-		{
-			return "error";
-		}
-		
+		return HttpFetcher.get(queryUrl + "&action=" + action);
 	}
 	
 	
