@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -26,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -278,13 +280,29 @@ public class OpenblocksFrame extends JFrame
 		//File menu
 		JMenu fileMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.file"));
 		JMenuItem newItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.new"));
+		newItem.setAccelerator(KeyStroke.getKeyStroke('N', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
 		newItem.addActionListener(new NewButtonListener(this));
 		fileMenu.add(newItem);
 		
 		JMenuItem openItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.load"));
 		openItem.addActionListener(new OpenButtonListener(this));
+		openItem.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		fileMenu.add(openItem);
+		
 		fileMenu.addSeparator();
+		
+		JMenuItem saveItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.save"));
+		saveItem.addActionListener(new SaveButtonListener(this));
+		saveItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileMenu.add(saveItem);
+		
+		JMenuItem saveAsItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.saveAs"));
+		saveAsItem.addActionListener(new SaveAsButtonListener(this));
+		saveAsItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | java.awt.event.InputEvent.SHIFT_MASK ));
+		fileMenu.add(saveAsItem);
+		
+		fileMenu.addSeparator();
+		
 		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
