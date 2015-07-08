@@ -28,7 +28,8 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	private Context context;
 	private boolean firstRun = true;
 	
-	public void init(Editor editor) {
+	public void init(Editor editor)
+	{
 		if (ArduBlockTool.editor == null )
 		{
 			String arduinoLaF = UIManager.getLookAndFeel().getClass().getName();
