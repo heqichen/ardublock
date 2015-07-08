@@ -1,6 +1,7 @@
 package com.ardublock.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -10,6 +11,9 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -218,50 +222,135 @@ public class OpenblocksFrame extends JFrame
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
+		final JLabel buttonTooltip = new JLabel();
 		
-		JButton newButton = new JButton();
+		
+		final JButton newButton = new JButton();
 		newButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/new.png")));
 		newButton.setContentAreaFilled(false); 
-		newButton.setPreferredSize( new Dimension(48,48));
+		newButton.setBackground(Color.LIGHT_GRAY);
+		newButton.setPreferredSize( new Dimension(48, 48));
 		newButton.setOpaque(false);
 		newButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.new"));
 		newButton.addActionListener(new NewButtonListener(context, this));
+		newButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.new"));
+				newButton.setContentAreaFilled(true); 
+			}
+			public void mouseExited(MouseEvent arg0) {
+				buttonTooltip.setText("");
+				newButton.setContentAreaFilled(false);
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
+		});
 
-		JButton saveButton = new JButton();
+		final JButton saveButton = new JButton();
 		saveButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/save.png")));
 		saveButton.setContentAreaFilled(false); 
+		saveButton.setBackground(Color.LIGHT_GRAY);
 		saveButton.setPreferredSize( new Dimension(48,48));
 		saveButton.setOpaque(false);
 		saveButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.save"));
 		saveButton.addActionListener(new SaveButtonListener(context, this));
+		saveButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				saveButton.setContentAreaFilled(true); 
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.save"));
+			}
+			public void mouseExited(MouseEvent arg0) {
+				saveButton.setContentAreaFilled(false);
+				buttonTooltip.setText("");
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
+		});
 
-		JButton saveAsButton = new JButton();
+		final JButton saveAsButton = new JButton();
 		saveAsButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/saveas.png")));
 		saveAsButton.setContentAreaFilled(false); 
+		saveAsButton.setBackground(Color.LIGHT_GRAY);
 		saveAsButton.setPreferredSize( new Dimension(48,48));
 		saveAsButton.setOpaque(false);
 		saveAsButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.saveAs"));
 		saveAsButton.addActionListener(new SaveAsButtonListener(context, this));
+		saveAsButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				saveAsButton.setContentAreaFilled(true); 
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.saveAs"));
+			}
+			public void mouseExited(MouseEvent arg0) {
+				saveAsButton.setContentAreaFilled(false);
+				buttonTooltip.setText("");
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
+		});
+		
 
-		JButton openButton = new JButton();
+		final JButton openButton = new JButton();
 		openButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/open.png")));
 		openButton.setContentAreaFilled(false); 
+		openButton.setBackground(Color.LIGHT_GRAY);
 		openButton.setPreferredSize( new Dimension(48,48));
 		openButton.setOpaque(false);
 		openButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.load"));
 		openButton.addActionListener(new OpenButtonListener(context, this));
+		openButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				openButton.setContentAreaFilled(true); 
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.load"));
+			}
+			public void mouseExited(MouseEvent arg0) {
+				openButton.setContentAreaFilled(false);
+				buttonTooltip.setText("");
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
+		});
 
-		JButton generateButton = new JButton();
+
+		final JButton generateButton = new JButton();
 		generateButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/download.png")));
 		generateButton.setContentAreaFilled(false); 
+		generateButton.setBackground(Color.LIGHT_GRAY);
 		generateButton.setPreferredSize( new Dimension(48,48));
 		generateButton.setOpaque(false);
 		generateButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.upload"));
 		generateButton.addActionListener(new GenerateCodeButtonListener(context, this));
+		generateButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				generateButton.setContentAreaFilled(true); 
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.upload"));
+			}
+			public void mouseExited(MouseEvent arg0) {
+				generateButton.setContentAreaFilled(false);
+				buttonTooltip.setText("");
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
+		});
 
-		JButton serialMonitorButton = new JButton();
+		final JButton serialMonitorButton = new JButton();
 		serialMonitorButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/serial.png")));
 		serialMonitorButton.setContentAreaFilled(false); 
+		serialMonitorButton.setBackground(Color.LIGHT_GRAY);
 		serialMonitorButton.setPreferredSize( new Dimension(48,48));
 		serialMonitorButton.setOpaque(false);
 		serialMonitorButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.serialMonitor"));
@@ -269,6 +358,21 @@ public class OpenblocksFrame extends JFrame
 			public void actionPerformed(ActionEvent e) {
 				context.getEditor().handleSerial();
 			}
+		});
+		serialMonitorButton.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent arg0) {}
+			public void mouseEntered(MouseEvent arg0) {
+				serialMonitorButton.setContentAreaFilled(true);
+				buttonTooltip.setText(uiMessageBundle.getString("ardublock.ui.serialMonitor"));
+			}
+			public void mouseExited(MouseEvent arg0) {
+				serialMonitorButton.setContentAreaFilled(false);
+				buttonTooltip.setText("");
+			}
+			public void mousePressed(MouseEvent arg0) {}
+			public void mouseReleased(MouseEvent arg0) {}
+	
 		});
 		
 
@@ -278,7 +382,7 @@ public class OpenblocksFrame extends JFrame
 		buttons.add(openButton);
 		buttons.add(generateButton);
 		buttons.add(serialMonitorButton);
-
+		buttons.add(buttonTooltip);
 		JPanel bottomPanel = new JPanel();
 		
 		JLabel versionLabel = new JLabel("v " + uiMessageBundle.getString("ardublock.ui.version"));
