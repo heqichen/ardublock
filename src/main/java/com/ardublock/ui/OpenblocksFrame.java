@@ -281,14 +281,15 @@ public class OpenblocksFrame extends JFrame
 		JMenuItem exportImageItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.saveImage"));
 		exportImageItem.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
-				Dimension size = workspace.getCanvasSize();
+				Dimension size = workspace.getRenderableBlockDimension();
 				System.out.println("size: " + size);
-				BufferedImage bi = new BufferedImage(2560, 2560, BufferedImage.TYPE_INT_RGB);
+				//BufferedImage bi = new BufferedImage(2560, 2560, BufferedImage.TYPE_INT_RGB);
+				BufferedImage bi = new BufferedImage(size.width + 100, size.height+100, BufferedImage.TYPE_INT_RGB);
 				Graphics2D g = (Graphics2D)bi.createGraphics();
 				double theScaleFactor = (300d/72d);  
-				g.scale(theScaleFactor,theScaleFactor);
 				
 				workspace.getBlockCanvas().getPageAt(0).getJComponent().paint(g);
+				g.scale(theScaleFactor,theScaleFactor);
 				try{
 					final JFileChooser fc = new JFileChooser();
 					fc.setSelectedFile(new File("ardublock.png"));
