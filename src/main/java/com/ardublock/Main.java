@@ -31,7 +31,7 @@ public class Main
 	private void startOpenblocksFrame() throws SAXException, IOException, ParserConfigurationException
 	{
 		openblocksFrame = new OpenblocksFrame();
-		openblocksFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//openblocksFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Context context = Context.getContext();
 		context.setInArduino(false);
 		openblocksFrame.setVisible(true);

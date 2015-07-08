@@ -87,7 +87,7 @@ public class OpenblocksFrame extends JFrame
 		this.setLayout(new BorderLayout());
 		//put the frame to the center of screen
 		this.setLocationRelativeTo(null);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
 		
@@ -184,7 +184,6 @@ public class OpenblocksFrame extends JFrame
 	
 	private void initOpenBlocks()
 	{
-		final Context context = Context.getContext();
 		
 		/*
 		WorkspaceController workspaceController = context.getWorkspaceController();
@@ -320,6 +319,49 @@ public class OpenblocksFrame extends JFrame
 		menuBar.add(helpMenu);
 		
 		this.setJMenuBar(menuBar);
+		
+		
+		
+		this.addWindowListener(new java.awt.event.WindowAdapter()
+		{
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent)
+		    {
+		    	OpenblocksFrame.this.askToQuit();
+		    }
+		});
+
+	}
+	
+	private void askToQuit()
+	{
+		if (context.isWorkspaceChanged())
+		{
+			if (JOptionPane.showConfirmDialog(OpenblocksFrame.this, 
+		            uiMessageBundle.getString("ardublock.ui.close.comfirm"),
+		            uiMessageBundle.getString("ardublock.ui.close"),
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
+			{
+				close();
+			}
+		}
+		else
+		{
+			close();
+		}
+	}
+	
+	private void close()
+	{
+		if (context.isInArduino())
+		{
+			this.setVisible(false);
+		}
+		else
+		{
+			System.exit(0);
+		}
 	}
 	
 	public void doOpenArduBlockFile()
