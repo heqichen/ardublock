@@ -18,17 +18,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.ardublock.core.Updater;
+
+
 
 public class MessageDialog extends JDialog
 {
 	private static final long serialVersionUID = -8291726696132421122L;
 	
 	private ResourceBundle uiMessageBundle;
-	private JTextArea textArea;
+	private JTextPane textPane;
 	
 	public MessageDialog(JFrame parentFrame)
 	{
@@ -41,14 +44,12 @@ public class MessageDialog extends JDialog
 		p.setBorder(new EmptyBorder(20,20,20,20));
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		textArea = new JTextArea("dummy");
+		textPane = new JTextPane();
 		//textArea.setFont(new Font("Serif", Font.ITALIC, 16));
+		textPane.setContentType("text/html");
+		textPane.setEditable(false);
 		
-		textArea.setLineWrap(true);
-		textArea.setWrapStyleWord(true);
-		textArea.setEditable(false);
-		
-		JScrollPane areaScrollPane = new JScrollPane(textArea);
+		JScrollPane areaScrollPane = new JScrollPane(textPane);
 		areaScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(360, 165));
 		
@@ -73,7 +74,7 @@ public class MessageDialog extends JDialog
 	
 	public void setMessage(String message)
 	{
-		textArea.setText(message);
+		textPane.setText(message);
 	}
 	
 }
