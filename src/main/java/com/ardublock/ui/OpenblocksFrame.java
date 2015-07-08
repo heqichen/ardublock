@@ -303,6 +303,13 @@ public class OpenblocksFrame extends JFrame
 		fileMenu.addSeparator();
 		
 		JMenuItem closeItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.close"));
+		closeItem.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
+				OpenblocksFrame.this.askToQuit();
+			}
+		});
 		fileMenu.add(closeItem);
 		
 		
@@ -319,7 +326,6 @@ public class OpenblocksFrame extends JFrame
 		menuBar.add(helpMenu);
 		
 		this.setJMenuBar(menuBar);
-		
 		
 		
 		this.addWindowListener(new java.awt.event.WindowAdapter()
