@@ -303,6 +303,9 @@ public class OpenblocksFrame extends JFrame
 		
 		fileMenu.addSeparator();
 		
+		JMenuItem closeItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.close"));
+		fileMenu.add(closeItem);
+		
 		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
