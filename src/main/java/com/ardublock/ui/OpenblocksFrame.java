@@ -273,7 +273,7 @@ public class OpenblocksFrame extends JFrame
 
 		buttons.add(newButton);
 		buttons.add(saveButton);
-		buttons.add(saveAsButton);
+		//buttons.add(saveAsButton);
 		buttons.add(openButton);
 		buttons.add(generateButton);
 		buttons.add(serialMonitorButton);
