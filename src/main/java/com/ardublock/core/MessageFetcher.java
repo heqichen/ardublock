@@ -65,10 +65,13 @@ public class MessageFetcher
 			String text = message.getString("message");
 			boolean force = message.getBoolean("force");
 			
-			if (id > showedMessageId)
+			if (id>showedMessageId || force)
 			{
-				showedMessageId = id;
-				config.setValue("message.showed.id", String.valueOf(showedMessageId));
+				if (id>showedMessageId)
+				{
+					showedMessageId = id;
+					config.setValue("message.showed.id", String.valueOf(showedMessageId));
+				}
 				messageDialog.setMessage(text);
 				messageDialog.setVisible(true);
 			}
