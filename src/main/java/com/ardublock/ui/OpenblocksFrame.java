@@ -120,6 +120,25 @@ public class OpenblocksFrame extends JFrame
 			
 		});
 		helpMenu.add(checkUpdateItem);
+		
+		
+		JMenuItem websiteItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.website"));
+		websiteItem.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+			    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+			    URL url;
+			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			        try {
+						url = new URL("http://ardublock.heqichen.cn");
+			            desktop.browse(url.toURI());
+			        } catch (Exception e1) {
+			            e1.printStackTrace();
+			        }
+			    }
+			}
+		});
+		helpMenu.add(websiteItem);
+		
 				
 		JMenuItem aboutItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.about"));
 		aboutItem.addActionListener(new ActionListener()
@@ -211,32 +230,7 @@ public class OpenblocksFrame extends JFrame
 				context.getEditor().handleSerial();
 			}
 		});
-		JButton saveImageButton = new JButton(uiMessageBundle.getString("ardublock.ui.saveImage"));
-		saveImageButton.addActionListener(new ActionListener () {
-			public void actionPerformed(ActionEvent e) {
-				Dimension size = workspace.getCanvasSize();
-				System.out.println("size: " + size);
-				BufferedImage bi = new BufferedImage(2560, 2560, BufferedImage.TYPE_INT_RGB);
-				Graphics2D g = (Graphics2D)bi.createGraphics();
-				double theScaleFactor = (300d/72d);  
-				g.scale(theScaleFactor,theScaleFactor);
-				
-				workspace.getBlockCanvas().getPageAt(0).getJComponent().paint(g);
-				try{
-					final JFileChooser fc = new JFileChooser();
-					fc.setSelectedFile(new File("ardublock.png"));
-					int returnVal = fc.showSaveDialog(workspace.getBlockCanvas().getJComponent());
-			        if (returnVal == JFileChooser.APPROVE_OPTION) {
-			            File file = fc.getSelectedFile();
-						ImageIO.write(bi,"png",file);
-			        }
-				} catch (Exception e1) {
-					
-				} finally {
-					g.dispose();
-				}
-			}
-		});
+		
 
 		buttons.add(newButton);
 		buttons.add(saveButton);
@@ -246,25 +240,9 @@ public class OpenblocksFrame extends JFrame
 		buttons.add(serialMonitorButton);
 
 		JPanel bottomPanel = new JPanel();
-		JButton websiteButton = new JButton(uiMessageBundle.getString("ardublock.ui.website"));
-		websiteButton.addActionListener(new ActionListener () {
-			public void actionPerformed(ActionEvent e) {
-			    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-			    URL url;
-			    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-			        try {
-						url = new URL("http://ardublock.heqichen.cn");
-			            desktop.browse(url.toURI());
-			        } catch (Exception e1) {
-			            e1.printStackTrace();
-			        }
-			    }
-			}
-		});
+		
 		JLabel versionLabel = new JLabel("v " + uiMessageBundle.getString("ardublock.ui.version"));
 		
-		bottomPanel.add(saveImageButton);
-		bottomPanel.add(websiteButton);
 		bottomPanel.add(versionLabel);
 
 		
@@ -297,6 +275,36 @@ public class OpenblocksFrame extends JFrame
 		saveAsItem.addActionListener(new SaveAsButtonListener(this));
 		saveAsItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | java.awt.event.InputEvent.SHIFT_MASK ));
 		fileMenu.add(saveAsItem);
+		
+		fileMenu.addSeparator();
+		
+		JMenuItem exportImageItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.saveImage"));
+		exportImageItem.addActionListener(new ActionListener () {
+			public void actionPerformed(ActionEvent e) {
+				Dimension size = workspace.getCanvasSize();
+				System.out.println("size: " + size);
+				BufferedImage bi = new BufferedImage(2560, 2560, BufferedImage.TYPE_INT_RGB);
+				Graphics2D g = (Graphics2D)bi.createGraphics();
+				double theScaleFactor = (300d/72d);  
+				g.scale(theScaleFactor,theScaleFactor);
+				
+				workspace.getBlockCanvas().getPageAt(0).getJComponent().paint(g);
+				try{
+					final JFileChooser fc = new JFileChooser();
+					fc.setSelectedFile(new File("ardublock.png"));
+					int returnVal = fc.showSaveDialog(workspace.getBlockCanvas().getJComponent());
+			        if (returnVal == JFileChooser.APPROVE_OPTION) {
+			            File file = fc.getSelectedFile();
+						ImageIO.write(bi,"png",file);
+			        }
+				} catch (Exception e1) {
+					
+				} finally {
+					g.dispose();
+				}
+			}
+		});
+		fileMenu.add(exportImageItem);
 		
 		fileMenu.addSeparator();
 		
