@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import processing.app.Editor;
 import processing.app.tools.Tool;
 
-import com.ardublock.core.Context;
 import com.ardublock.ui.ArduBlockToolFrame;
 import com.ardublock.ui.listener.OpenblocksFrameListener;
 
@@ -20,14 +19,17 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 {
 	static Editor editor;
 	static ArduBlockToolFrame openblocksFrame;
+	private Context context;
 	
 	public void init(Editor editor) {
 		if (ArduBlockTool.editor == null )
 		{
+			context = new Context(true);
+			
 			ArduBlockTool.editor = editor;
-			ArduBlockTool.openblocksFrame = new ArduBlockToolFrame();
+			ArduBlockTool.openblocksFrame = new ArduBlockToolFrame(context);
 			ArduBlockTool.openblocksFrame.addListener(this);
-			Context context = Context.getContext();
+			
 			String arduinoVersion = this.getArduinoVersion();
 			context.setInArduino(true);
 			context.setArduinoVersionString(arduinoVersion);
@@ -76,7 +78,6 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	
 	private String getArduinoVersion()
 	{
-		Context context = Context.getContext();
 		File versionFile = context.getArduinoFile("lib/version.txt");
 		if (versionFile.exists())
 		{

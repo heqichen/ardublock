@@ -1,6 +1,6 @@
 package com.ardublock.ui.listener;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.ui.OpenblocksFrame;
 
 import edu.mit.blocks.codeblocks.Block;
@@ -11,9 +11,9 @@ public class ArdublockWorkspaceListener implements WorkspaceListener
 {
 	private Context context;
 	private OpenblocksFrame frame;
-	public ArdublockWorkspaceListener(OpenblocksFrame frame)
+	public ArdublockWorkspaceListener(Context context, OpenblocksFrame frame)
 	{
-		context = Context.getContext();
+		this.context = context;
 		this.frame = frame;
 	}
 	

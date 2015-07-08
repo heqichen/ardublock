@@ -1,4 +1,4 @@
-package com.ardublock.core;
+package com.ardublock;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +50,7 @@ public class Context
 	private boolean isInArduino = false;
 	private String arduinoVersionString = ARDUINO_VERSION_UNKNOWN;
 	private OsType osType; 
+	private Configuration config;
 
 	final public static String APP_NAME = "ArduBlock";
 	
@@ -67,8 +68,8 @@ public class Context
 	private String saveFileName;
 	
 	//final public static String VERSION_STRING = " ";
-	
-	public static Context getContext()
+	/*
+	private static Context getContext()
 	{
 		if (singletonContext == null)
 		{
@@ -82,11 +83,12 @@ public class Context
 		}
 		return singletonContext;
 	}
+	*/
 	
 	private WorkspaceController workspaceController;
 	private Workspace workspace;
 	
-	private Context()
+	Context(boolean isInArduino)
 	{
 		workspaceController = new WorkspaceController();
 		resetWorksapce();
@@ -96,9 +98,11 @@ public class Context
 		ofls = new HashSet<OpenblocksFrameListener>();
 		this.workspace = workspaceController.getWorkspace();
 		
-		isInArduino = false;
+		this.isInArduino = isInArduino;
 		
 		osType = determineOsType();
+		
+		config = new Configuration(this);
 	}
 	
 	public void resetWorksapce()

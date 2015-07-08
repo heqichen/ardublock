@@ -1,6 +1,6 @@
 package com.ardublock.translator.block;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.exception.SocketNullException;
 import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
@@ -18,7 +18,7 @@ public class WireWriteBlock extends TranslatorBlock
 		WireReadBlock.setupWireEnvironment(translator);
 	
 		String ret = "";
-		Context context = Context.getContext();
+		Context context = translator.getContext();
 		if (context.getArduinoVersionString().equals(Context.ARDUINO_VERSION_UNKNOWN))
 		{
 			ret += "//Unable to dectect your Arduino version, using 1.0 in default\n";

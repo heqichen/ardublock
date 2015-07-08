@@ -9,7 +9,7 @@ import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.translator.AutoFormat;
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.exception.BlockException;
@@ -28,7 +28,7 @@ public class GenerateCodeButtonListener implements ActionListener
 	private Workspace workspace; 
 	private ResourceBundle uiMessageBundle;
 	
-	public GenerateCodeButtonListener(JFrame frame, Context context)
+	public GenerateCodeButtonListener(Context context, JFrame frame)
 	{
 		this.parentFrame = frame;
 		this.context = context;
@@ -40,7 +40,7 @@ public class GenerateCodeButtonListener implements ActionListener
 	{
 		boolean success;
 		success = true;
-		Translator translator = new Translator(workspace);
+		Translator translator = new Translator(workspace, context);
 		translator.reset();
 		
 		Iterable<RenderableBlock> renderableBlocks = workspace.getRenderableBlocks();

@@ -1,6 +1,6 @@
 package com.ardublock.translator.block.storage;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;
@@ -20,7 +20,7 @@ public class SDWriteNumberBlock extends TranslatorBlock
 		
 		String ret = "";
 		
-		Context context = Context.getContext();
+		Context context = translator.getContext();
 		if (context.getArduinoVersionString().equals(Context.ARDUINO_VERSION_UNKNOWN))
 		{
 			ret += "//Unable to detect your Arduino version, using 1.0 in default\n";

@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import com.ardublock.Context;
 import com.ardublock.translator.adaptor.BlockAdaptor;
 import com.ardublock.translator.adaptor.OpenBlocksAdaptor;
 import com.ardublock.translator.block.TranslatorBlock;
@@ -26,6 +27,7 @@ import edu.mit.blocks.workspace.Workspace;
 public class Translator
 {
 	private static final String variablePrefix = "_ABVAR_";
+	private Context context;
 
 	private Set<String> headerFileSet;
 	private Set<String> definitionSet;
@@ -51,10 +53,16 @@ public class Translator
 	private boolean isScoopProgram;
 	private boolean isGuinoProgram;
 
-	public Translator(Workspace ws)
+	public Translator(Workspace ws, Context context)
 	{
+		this.context = context;
 		workspace = ws;
 		reset();
+	}
+
+	public Context getContext()
+	{
+		return this.context;
 	}
 	
 	public String genreateHeaderCommand()

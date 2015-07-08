@@ -3,15 +3,16 @@ package com.ardublock.ui.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.ui.OpenblocksFrame;
 
 public class SaveButtonListener implements ActionListener
 {
 	private OpenblocksFrame parentFrame;
-	public SaveButtonListener(OpenblocksFrame frame)
+	private Context context;
+	public SaveButtonListener(Context context, OpenblocksFrame frame)
 	{
-		Context.getContext();
+		this.context = context;
 		parentFrame = frame;
 	}
 	

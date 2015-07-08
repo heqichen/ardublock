@@ -8,7 +8,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import com.ardublock.core.Context;
 import com.ardublock.ui.ConsoleFrame;
 import com.ardublock.ui.OpenblocksFrame;
 
@@ -30,10 +29,11 @@ public class Main
 	
 	private void startOpenblocksFrame() throws SAXException, IOException, ParserConfigurationException
 	{
-		openblocksFrame = new OpenblocksFrame();
+		Context context = new Context(false);
+		
+		openblocksFrame = new OpenblocksFrame(context);
 		//openblocksFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Context context = Context.getContext();
-		context.setInArduino(false);
+		
 		openblocksFrame.setVisible(true);
 	}
 

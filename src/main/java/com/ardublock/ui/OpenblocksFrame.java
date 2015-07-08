@@ -33,7 +33,7 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.ardublock.core.Context;
+import com.ardublock.Context;
 import com.ardublock.core.Example;
 import com.ardublock.core.ExampleReader;
 import com.ardublock.core.Updater;
@@ -81,9 +81,9 @@ public class OpenblocksFrame extends JFrame
 		
 	}
 	
-	public OpenblocksFrame()
+	public OpenblocksFrame(Context context)
 	{
-		context = Context.getContext();
+		this.context = context;
 		this.setTitle(makeFrameTitle());
 		this.setSize(new Dimension(1024, 760));
 		this.setLayout(new BorderLayout());
@@ -212,7 +212,7 @@ public class OpenblocksFrame extends JFrame
 		final Workspace workspace = context.getWorkspace();
 		
 		// WTF I can't add worksapcelistener by workspace contrller
-		workspace.addWorkspaceListener(new ArdublockWorkspaceListener(this));
+		workspace.addWorkspaceListener(new ArdublockWorkspaceListener(context, this));
 		
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -224,7 +224,7 @@ public class OpenblocksFrame extends JFrame
 		newButton.setPreferredSize( new Dimension(48,48));
 		newButton.setOpaque(false);
 		newButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.new"));
-		newButton.addActionListener(new NewButtonListener(this));
+		newButton.addActionListener(new NewButtonListener(context, this));
 
 		JButton saveButton = new JButton();
 		saveButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/save.png")));
@@ -232,7 +232,7 @@ public class OpenblocksFrame extends JFrame
 		saveButton.setPreferredSize( new Dimension(48,48));
 		saveButton.setOpaque(false);
 		saveButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.save"));
-		saveButton.addActionListener(new SaveButtonListener(this));
+		saveButton.addActionListener(new SaveButtonListener(context, this));
 
 		JButton saveAsButton = new JButton();
 		saveAsButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/saveas.png")));
@@ -240,7 +240,7 @@ public class OpenblocksFrame extends JFrame
 		saveAsButton.setPreferredSize( new Dimension(48,48));
 		saveAsButton.setOpaque(false);
 		saveAsButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.saveAs"));
-		saveAsButton.addActionListener(new SaveAsButtonListener(this));
+		saveAsButton.addActionListener(new SaveAsButtonListener(context, this));
 
 		JButton openButton = new JButton();
 		openButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/open.png")));
@@ -248,7 +248,7 @@ public class OpenblocksFrame extends JFrame
 		openButton.setPreferredSize( new Dimension(48,48));
 		openButton.setOpaque(false);
 		openButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.load"));
-		openButton.addActionListener(new OpenButtonListener(this));
+		openButton.addActionListener(new OpenButtonListener(context, this));
 
 		JButton generateButton = new JButton();
 		generateButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/download.png")));
@@ -256,7 +256,7 @@ public class OpenblocksFrame extends JFrame
 		generateButton.setPreferredSize( new Dimension(48,48));
 		generateButton.setOpaque(false);
 		generateButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.upload"));
-		generateButton.addActionListener(new GenerateCodeButtonListener(this, context));
+		generateButton.addActionListener(new GenerateCodeButtonListener(context, this));
 
 		JButton serialMonitorButton = new JButton();
 		serialMonitorButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/serial.png")));
@@ -295,23 +295,23 @@ public class OpenblocksFrame extends JFrame
 		JMenu fileMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.file"));
 		JMenuItem newItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.new"));
 		newItem.setAccelerator(KeyStroke.getKeyStroke('N', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
-		newItem.addActionListener(new NewButtonListener(this));
+		newItem.addActionListener(new NewButtonListener(context, this));
 		fileMenu.add(newItem);
 		
 		JMenuItem openItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.load"));
-		openItem.addActionListener(new OpenButtonListener(this));
+		openItem.addActionListener(new OpenButtonListener(context, this));
 		openItem.setAccelerator(KeyStroke.getKeyStroke('O', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		fileMenu.add(openItem);
 		
 		fileMenu.addSeparator();
 		
 		JMenuItem saveItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.save"));
-		saveItem.addActionListener(new SaveButtonListener(this));
+		saveItem.addActionListener(new SaveButtonListener(context, this));
 		saveItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		fileMenu.add(saveItem);
 		
 		JMenuItem saveAsItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.saveAs"));
-		saveAsItem.addActionListener(new SaveAsButtonListener(this));
+		saveAsItem.addActionListener(new SaveAsButtonListener(context, this));
 		saveAsItem.setAccelerator(KeyStroke.getKeyStroke('S', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask() | java.awt.event.InputEvent.SHIFT_MASK ));
 		fileMenu.add(saveAsItem);
 		
@@ -361,7 +361,7 @@ public class OpenblocksFrame extends JFrame
 		JMenu arduinoMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.arduino"));
 		
 		JMenuItem generateItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.upload"));
-		generateItem.addActionListener(new GenerateCodeButtonListener(this, context));
+		generateItem.addActionListener(new GenerateCodeButtonListener(context, this));
 		generateItem.setAccelerator(KeyStroke.getKeyStroke('U', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 		arduinoMenu.add(generateItem);
 		
