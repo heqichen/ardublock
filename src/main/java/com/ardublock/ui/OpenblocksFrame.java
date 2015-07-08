@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -213,7 +214,7 @@ public class OpenblocksFrame extends JFrame
 		workspace.addWorkspaceListener(new ArdublockWorkspaceListener(this));
 		
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout());
+		//buttons.setLayout(new FlowLayout());
 		JButton newButton = new JButton(uiMessageBundle.getString("ardublock.ui.new"));
 		newButton.addActionListener(new NewButtonListener(this));
 		JButton saveButton = new JButton(uiMessageBundle.getString("ardublock.ui.save"));
@@ -224,7 +225,13 @@ public class OpenblocksFrame extends JFrame
 		openButton.addActionListener(new OpenButtonListener(this));
 		JButton generateButton = new JButton(uiMessageBundle.getString("ardublock.ui.upload"));
 		generateButton.addActionListener(new GenerateCodeButtonListener(this, context));
-		JButton serialMonitorButton = new JButton(uiMessageBundle.getString("ardublock.ui.serialMonitor"));
+		
+		JButton serialMonitorButton = new JButton();
+		serialMonitorButton.setIcon(new ImageIcon(this.getClass().getResource("/com/ardublock/icons/download.png")));
+		serialMonitorButton.setContentAreaFilled(false); 
+		serialMonitorButton.setPreferredSize( new Dimension(48,48));
+		serialMonitorButton.setOpaque(false);
+		serialMonitorButton.setToolTipText(uiMessageBundle.getString("ardublock.ui.serialMonitor"));
 		serialMonitorButton.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				context.getEditor().handleSerial();
@@ -334,6 +341,7 @@ public class OpenblocksFrame extends JFrame
 			}
 		});
 		arduinoMenu.add(serialItem);
+		
 		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
