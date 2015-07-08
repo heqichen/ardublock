@@ -8,6 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import com.ardublock.core.MessageFetcher;
 import com.ardublock.ui.ConsoleFrame;
 import com.ardublock.ui.MessageDialog;
 import com.ardublock.ui.OpenblocksFrame;
@@ -37,8 +38,8 @@ public class Main
 		
 		openblocksFrame.setVisible(true);
 		
-		MessageDialog d = new MessageDialog(openblocksFrame);
-		d.show();
+		MessageFetcher mf = new MessageFetcher();
+		mf.startFetchMessage(new MessageDialog(openblocksFrame), context);
 	}
 
 	public void shutdown()

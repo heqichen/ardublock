@@ -28,10 +28,10 @@ public class MessageDialog extends JDialog
 	private static final long serialVersionUID = -8291726696132421122L;
 	
 	private ResourceBundle uiMessageBundle;
+	private JTextArea textArea;
 	
 	public MessageDialog(JFrame parentFrame)
 	{
-		
 		super(parentFrame, "Message", true);
 		
 		uiMessageBundle = ResourceBundle.getBundle("com/ardublock/block/ardublock");
@@ -41,7 +41,7 @@ public class MessageDialog extends JDialog
 		p.setBorder(new EmptyBorder(20,20,20,20));
 		p.setLayout(new FlowLayout(FlowLayout.CENTER));
 		
-		JTextArea textArea = new JTextArea("dummy");
+		textArea = new JTextArea("dummy");
 		//textArea.setFont(new Font("Serif", Font.ITALIC, 16));
 		
 		textArea.setLineWrap(true);
@@ -69,5 +69,11 @@ public class MessageDialog extends JDialog
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 	}
-
+	
+	
+	public void setMessage(String message)
+	{
+		textArea.setText(message);
+	}
+	
 }
