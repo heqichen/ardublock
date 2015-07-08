@@ -12,7 +12,9 @@ import java.io.UnsupportedEncodingException;
 import processing.app.Editor;
 import processing.app.tools.Tool;
 
+import com.ardublock.core.MessageFetcher;
 import com.ardublock.ui.ArduBlockToolFrame;
+import com.ardublock.ui.MessageDialog;
 import com.ardublock.ui.listener.OpenblocksFrameListener;
 
 public class ArduBlockTool implements Tool, OpenblocksFrameListener
@@ -20,6 +22,7 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	static Editor editor;
 	static ArduBlockToolFrame openblocksFrame;
 	private Context context;
+	private boolean firstRun = true;
 	
 	public void init(Editor editor) {
 		if (ArduBlockTool.editor == null )
@@ -44,6 +47,14 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 			ArduBlockTool.editor.toFront();
 			ArduBlockTool.openblocksFrame.setVisible(true);
 			ArduBlockTool.openblocksFrame.toFront();
+			if (firstRun)
+			{
+				MessageFetcher mf = new MessageFetcher();
+				mf.startFetchMessage(new MessageDialog(openblocksFrame), context);
+				firstRun = false;
+			}
+			
+			
 		} catch (Exception e) {
 			
 		}
