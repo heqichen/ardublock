@@ -104,6 +104,7 @@ public class Context
 		
 		config = new Configuration(this);
 	}
+
 	
 	public void resetWorksapce()
 	{
