@@ -99,21 +99,7 @@ public class OpenblocksFrame extends JFrame
 		
 		initOpenBlocks();
 		
-		JMenuBar menuBar = new JMenuBar();
 		
-		
-		//tutorial menu
-		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
-		tutorialMenu.add(renderExapmleMenu());
-		
-		//Help menu
-		JMenu helpMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.help"));
-		renderHelpMenu(helpMenu);
-		
-		menuBar.add(tutorialMenu);
-		menuBar.add(helpMenu);
-		
-		this.setJMenuBar(menuBar);
 		
 		updater.startCheck("startup", this);
 		
@@ -286,6 +272,29 @@ public class OpenblocksFrame extends JFrame
 		this.add(buttons, BorderLayout.NORTH);
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(workspace, BorderLayout.CENTER);
+		
+		
+		JMenuBar menuBar = new JMenuBar();
+		//File menu
+		JMenu fileMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.file"));
+		JMenuItem newItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.new"));
+		newItem.addActionListener(new NewButtonListener(this));
+		fileMenu.add(newItem);
+		
+		
+		//tutorial menu
+		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
+		tutorialMenu.add(renderExapmleMenu());
+		
+		//Help menu
+		JMenu helpMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.help"));
+		renderHelpMenu(helpMenu);
+		
+		menuBar.add(fileMenu);
+		menuBar.add(tutorialMenu);
+		menuBar.add(helpMenu);
+		
+		this.setJMenuBar(menuBar);
 	}
 	
 	public void doOpenArduBlockFile()
