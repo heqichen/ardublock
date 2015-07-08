@@ -281,6 +281,10 @@ public class OpenblocksFrame extends JFrame
 		newItem.addActionListener(new NewButtonListener(this));
 		fileMenu.add(newItem);
 		
+		JMenuItem openItem = new JMenuItem(uiMessageBundle.getString("ardublock.ui.load"));
+		openItem.addActionListener(new OpenButtonListener(this));
+		fileMenu.add(openItem);
+		fileMenu.addSeparator();
 		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
