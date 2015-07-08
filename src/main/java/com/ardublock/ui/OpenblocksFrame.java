@@ -56,6 +56,7 @@ import com.ardublock.ui.listener.SaveButtonListener;
 
 import edu.mit.blocks.controller.WorkspaceController;
 import edu.mit.blocks.workspace.Workspace;
+import processing.app.Preferences;
 
 
 public class OpenblocksFrame extends JFrame
@@ -78,10 +79,14 @@ public class OpenblocksFrame extends JFrame
 		context.registerOpenblocksFrameListener(ofl);
 	}
 	
-	public void changeSerialPort(String name)
+	public void refreshSerialPort()
 	{
-		serialLabel.setText(name);
+		if (context.isInArduino())
+		{
+			serialLabel.setText(Preferences.get("serial.port"));
+		}
 	}
+	
 	
 	public String makeFrameTitle()
 	{

@@ -164,9 +164,7 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	
 	private void editorChanged()
 	{
-		if (context.isInArduino())
-		{
-			openblocksFrame.changeSerialPort(Preferences.get("serial.port"));
-		}
+		openblocksFrame.refreshSerialPort();
 	}
+
 }

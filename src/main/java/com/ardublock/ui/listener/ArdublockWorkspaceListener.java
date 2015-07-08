@@ -19,6 +19,7 @@ public class ArdublockWorkspaceListener implements WorkspaceListener
 	
 	public void workspaceEventOccurred(WorkspaceEvent event)
 	{
+		frame.refreshSerialPort();
 		//System.out.println("Event: " + event.getEventType());
 		if (!context.isWorkspaceChanged())
 		{
