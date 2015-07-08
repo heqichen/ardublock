@@ -42,7 +42,7 @@ public class MessageFetcher
 		{
 			JSONObject json = new JSONObject(msgStr);
 			JSONArray messageArray = (JSONArray) json.get("messages");
-			System.out.println(messageArray.length());
+			//System.out.println(messageArray.length());
 			int i;
 			for (i=0; i<messageArray.length(); ++i)
 			{
@@ -79,7 +79,7 @@ public class MessageFetcher
 		}
 		catch (JSONException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 	}

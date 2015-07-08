@@ -13,7 +13,7 @@ public class HttpFetcher
 		try
 		{
 			URL url = new URL(urlStr);
-			System.out.println(url.toString());
+			//System.out.println(url.toString());
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("User-Agent", "ardublock");
