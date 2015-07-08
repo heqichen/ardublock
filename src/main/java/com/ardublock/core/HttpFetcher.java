@@ -8,31 +8,39 @@ import java.net.URL;
 
 public class HttpFetcher
 {
-	public static String get(String urlStr) throws IOException
+	public static String get(String urlStr)
 	{
-		URL url = new URL(urlStr);
-		System.out.println(url.toString());
-		HttpURLConnection con = (HttpURLConnection) url.openConnection();
-		con.setRequestMethod("GET");
-		con.setRequestProperty("User-Agent", "ardublock");
-		int responseCode = con.getResponseCode();
-		
-		BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null)
+		try
 		{
-			response.append(inputLine);
+			URL url = new URL(urlStr);
+			System.out.println(url.toString());
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("User-Agent", "ardublock");
+			int responseCode = con.getResponseCode();
+			
+			BufferedReader in = new BufferedReader( new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	 
+			while ((inputLine = in.readLine()) != null)
+			{
+				response.append(inputLine);
+			}
+			in.close();
+			if (responseCode == 200)
+			{
+				return response.toString().trim();
+			}
+			else
+			{
+				return null;
+			}
 		}
-		in.close();
-		if (responseCode == 200)
+		catch (IOException e)
 		{
-			return response.toString().trim();
+			
 		}
-		else
-		{
-			return null;
-		}
+		return null;
 	}
 }

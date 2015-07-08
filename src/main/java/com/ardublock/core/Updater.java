@@ -46,7 +46,6 @@ public class Updater
 			queryUrl += "&lang=";
 			queryUrl += URLEncoder.encode(lang, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -87,17 +86,10 @@ public class Updater
 		{
 			public void run()
 			{
-				try
+				String result = Updater.this.checkUpdate(action);
+				if (!result.equals("updated") && !result.equals("error"))
 				{
-					String result = Updater.this.checkUpdate(action);
-					if (!result.equals("updated") && !result.equals("error"))
-					{
-						showDownloadAvailabeDialog(parentFrame, result);	
-					}
-				}
-				catch (IOException e)
-				{
-					
+					showDownloadAvailabeDialog(parentFrame, result);	
 				}
 				
 			}
@@ -108,37 +100,34 @@ public class Updater
 	
 	public void startCheckSync(final String action, final JFrame parentFrame)
 	{
-		try
+
+		String result = Updater.this.checkUpdate(action);
+		if (result == null)
 		{
-			String result = Updater.this.checkUpdate(action);
-			if (result!=null && !result.equals("updated"))
+			JOptionPane.showMessageDialog(
+				parentFrame, 
+				uiMessageBundle.getString("ardublock.ui.update.error"), 
+				uiMessageBundle.getString("ardublock.ui.error"), 
+				JOptionPane.ERROR_MESSAGE);
+		}
+		else
+		{
+			if (result.equals("updated"))
 			{
-				showDownloadAvailabeDialog(parentFrame, result);
+				JOptionPane.showMessageDialog(
+						parentFrame, 
+						uiMessageBundle.getString("ardublock.ui.update.updated"), 
+						uiMessageBundle.getString("ardublock.ui.update.title"), 
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
-				if (result.equals("updated"))
-				{
-					JOptionPane.showMessageDialog(
-							parentFrame, 
-							uiMessageBundle.getString("ardublock.ui.update.updated"), 
-							uiMessageBundle.getString("ardublock.ui.update.title"), 
-							JOptionPane.INFORMATION_MESSAGE);
-				}
+				showDownloadAvailabeDialog(parentFrame, result);
 			}
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(
-					parentFrame, 
-					uiMessageBundle.getString("ardublock.ui.update.error"), 
-					uiMessageBundle.getString("ardublock.ui.error"), 
-					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	private String checkUpdate(String action) throws IOException
+	private String checkUpdate(String action)
 	{
 		return HttpFetcher.get(queryUrl + "&action=" + action);
 	}
