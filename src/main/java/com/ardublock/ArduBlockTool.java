@@ -31,6 +31,11 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	public void init(Editor editor) {
 		if (ArduBlockTool.editor == null )
 		{
+			String arduinoLaF = UIManager.getLookAndFeel().getClass().getName();
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch (Exception e) {e.printStackTrace();}
+			
 			context = new Context(true);
 			
 			ArduBlockTool.editor = editor;
@@ -44,13 +49,17 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 			System.out.println("Arduino Version: " + arduinoVersion);
 			System.out.println("arduino locale: " + editor.getLocale());
 			System.out.println("os: " + context.getOsType().toString());
+			
+			try {
+				UIManager.setLookAndFeel(arduinoLaF);
+			} catch (Exception e) {e.printStackTrace();}
 		}
 		editorChanged();
 	}
+	
 
 	public void run() {
 		try {
-			styling();
 			ArduBlockTool.editor.toFront();
 			ArduBlockTool.openblocksFrame.setVisible(true);
 			ArduBlockTool.openblocksFrame.toFront();
@@ -61,9 +70,6 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 				firstRun = false;
 			}
 			editorChanged();
-
-			System.out.println(UIManager.getSystemLookAndFeelClassName());
-			
 			
 		} catch (Exception e) {
 			
@@ -71,19 +77,6 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 	}
 	
 	
-	
-	private void styling()
-	{
-		if (context.getOsType().equals(Context.OsType.LINUX))
-		{
-			try
-			{
-				UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-			}
-			catch(Exception e)
-			{}
-		}
-	}
 
 	public String getMenuTitle()
 	{

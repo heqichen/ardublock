@@ -38,8 +38,11 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.FileChooserUI;
 
 import com.ardublock.Context;
 import com.ardublock.core.Example;
@@ -122,7 +125,6 @@ public class OpenblocksFrame extends JFrame
 		initOpenBlocks();
 		
 		updater.startCheck("startup", this);
-		
 		
 	}
 	
@@ -460,7 +462,7 @@ public class OpenblocksFrame extends JFrame
 		exportImageItem.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				Dimension size = workspace.getRenderableBlockDimension();
-				System.out.println("size: " + size);
+				//System.out.println("size: " + size);
 				//BufferedImage bi = new BufferedImage(2560, 2560, BufferedImage.TYPE_INT_RGB);
 				BufferedImage bi = new BufferedImage(size.width + 100, size.height+100, BufferedImage.TYPE_INT_RGB);
 				Graphics2D g = (Graphics2D)bi.createGraphics();
