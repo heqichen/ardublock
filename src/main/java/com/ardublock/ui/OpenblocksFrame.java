@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -33,7 +35,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -66,12 +70,17 @@ public class OpenblocksFrame extends JFrame
 	private FileFilter ffilter;
 	private Updater updater;
 	private AboutDialog aboutDialog;
-	
+	private JLabel serialLabel;
 	private ResourceBundle uiMessageBundle;
 	
 	public void addListener(OpenblocksFrameListener ofl)
 	{
 		context.registerOpenblocksFrameListener(ofl);
+	}
+	
+	public void changeSerialPort(String name)
+	{
+		serialLabel.setText(name);
 	}
 	
 	public String makeFrameTitle()
@@ -219,8 +228,8 @@ public class OpenblocksFrame extends JFrame
 		// WTF I can't add worksapcelistener by workspace contrller
 		workspace.addWorkspaceListener(new ArdublockWorkspaceListener(context, this));
 		
+		JPanel toolbar = new JPanel();
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		final JLabel buttonTooltip = new JLabel();
 		
@@ -375,14 +384,34 @@ public class OpenblocksFrame extends JFrame
 	
 		});
 		
-
+		
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.LINE_AXIS));
+		serialLabel = new JLabel("N/A", SwingConstants.RIGHT);
+		//label2.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		infoPanel.add(new JLabel(uiMessageBundle.getString("ardublock.ui.serial.prompt") +  ": "));
+		infoPanel.add(serialLabel);
+		infoPanel.setLayout(new FlowLayout());
+		
+		
+		
 		buttons.add(newButton);
 		buttons.add(saveButton);
 		//buttons.add(saveAsButton);
 		buttons.add(openButton);
+		buttons.add(Box.createGlue());
 		buttons.add(generateButton);
 		buttons.add(serialMonitorButton);
 		buttons.add(buttonTooltip);
+		
+		toolbar.setLayout(new BorderLayout());
+		
+		toolbar.add(buttons, BorderLayout.WEST);
+		//toolbar.add(Box.createGlue());
+		toolbar.add(infoPanel, BorderLayout.EAST);
+		
 		JPanel bottomPanel = new JPanel();
 		
 		JLabel versionLabel = new JLabel("v " + uiMessageBundle.getString("ardublock.ui.version"));
@@ -390,7 +419,7 @@ public class OpenblocksFrame extends JFrame
 		bottomPanel.add(versionLabel);
 
 		
-		this.add(buttons, BorderLayout.NORTH);
+		this.add(toolbar, BorderLayout.NORTH);
 		this.add(bottomPanel, BorderLayout.SOUTH);
 		this.add(workspace, BorderLayout.CENTER);
 		

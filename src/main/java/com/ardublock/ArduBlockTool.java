@@ -9,7 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import processing.app.Editor;
+import processing.app.Preferences;
 import processing.app.tools.Tool;
 
 import com.ardublock.core.MessageFetcher;
@@ -39,11 +43,14 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 			context.setEditor(editor);
 			System.out.println("Arduino Version: " + arduinoVersion);
 			System.out.println("arduino locale: " + editor.getLocale());
+			System.out.println("os: " + context.getOsType().toString());
 		}
+		editorChanged();
 	}
 
 	public void run() {
 		try {
+			styling();
 			ArduBlockTool.editor.toFront();
 			ArduBlockTool.openblocksFrame.setVisible(true);
 			ArduBlockTool.openblocksFrame.toFront();
@@ -53,38 +60,62 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 				mf.startFetchMessage(new MessageDialog(openblocksFrame), context);
 				firstRun = false;
 			}
+			editorChanged();
+
+			System.out.println(UIManager.getSystemLookAndFeelClassName());
 			
 			
 		} catch (Exception e) {
 			
 		}
 	}
-
-	public String getMenuTitle() {
-		return Context.APP_NAME;
+	
+	
+	
+	private void styling()
+	{
+		if (context.getOsType().equals(Context.OsType.LINUX))
+		{
+			try
+			{
+				UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+			}
+			catch(Exception e)
+			{}
+		}
 	}
 
-	public void didSave() {
+	public String getMenuTitle()
+	{
+		editorChanged();
+		return Context.APP_NAME;
 		
+	}
+
+	public void didSave()
+	{
+		editorChanged();
 	}
 	
-	public void didLoad() {
-		
+	public void didLoad()
+	{
+		editorChanged();
 	}
 	
 	public void didSaveAs()
 	{
-		
+		editorChanged();
 	}
 	
 	public void didNew()
 	{
-		
+		editorChanged();
 	}
 	
 	public void didGenerate(String source) {
 		ArduBlockTool.editor.setText(source);
 		ArduBlockTool.editor.handleExport(false);
+		editorChanged();
 	}
 	
 	private String getArduinoVersion()
@@ -129,5 +160,13 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 			return Context.ARDUINO_VERSION_UNKNOWN;
 		}
 		
+	}
+	
+	private void editorChanged()
+	{
+		if (context.isInArduino())
+		{
+			openblocksFrame.changeSerialPort(Preferences.get("serial.port"));
+		}
 	}
 }
