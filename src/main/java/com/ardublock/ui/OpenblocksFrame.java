@@ -101,8 +101,6 @@ public class OpenblocksFrame extends JFrame
 		
 		initOpenBlocks();
 		
-		
-		
 		updater.startCheck("startup", this);
 		
 	}
@@ -312,6 +310,7 @@ public class OpenblocksFrame extends JFrame
 		});
 		fileMenu.add(closeItem);
 		
+		JMenu arduinoMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.arduino"));
 		
 		//tutorial menu
 		JMenu tutorialMenu = new JMenu(uiMessageBundle.getString("ardublock.ui.tutorial"));
@@ -322,6 +321,7 @@ public class OpenblocksFrame extends JFrame
 		renderHelpMenu(helpMenu);
 		
 		menuBar.add(fileMenu);
+		menuBar.add(arduinoMenu);
 		menuBar.add(tutorialMenu);
 		menuBar.add(helpMenu);
 		
