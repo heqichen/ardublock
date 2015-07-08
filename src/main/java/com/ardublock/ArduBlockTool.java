@@ -33,6 +33,7 @@ public class ArduBlockTool implements Tool, OpenblocksFrameListener
 			context.setArduinoVersionString(arduinoVersion);
 			context.setEditor(editor);
 			System.out.println("Arduino Version: " + arduinoVersion);
+			System.out.println("arduino locale: " + editor.getLocale());
 		}
 	}
 
