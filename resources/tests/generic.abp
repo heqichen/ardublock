@@ -3,6 +3,49 @@
 <Pages collapsible-pages="yes" drawer-with-page="yes">
 <Page page-color="40 40 40" page-drawer="Main" page-infullview="yes" page-name="Main" page-width="1920">
 <PageBlocks>
+<Block genus-name="serial_println" id="207">
+<Location>
+<X>167</X>
+<Y>550</Y>
+</Location>
+<BeforeBlockId>119</BeforeBlockId>
+<Sockets num-sockets="1">
+<BlockConnector con-block-id="205" connector-kind="socket" connector-type="string" init-type="string" label="" position-type="single"/>
+</Sockets>
+</Block>
+<Block genus-name="message" id="205">
+<Location>
+<X>287</X>
+<Y>553</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="207" connector-kind="plug" connector-type="string" init-type="string" label="" position-type="single"/>
+</Plug>
+<Sockets num-sockets="1">
+<BlockConnector con-block-id="206" connector-kind="socket" connector-type="string" init-type="string" label="" position-type="single"/>
+</Sockets>
+</Block>
+<Block genus-name="glue_sn" id="206">
+<Location>
+<X>365</X>
+<Y>553</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="205" connector-kind="plug" connector-type="string" init-type="string" label="" position-type="single"/>
+</Plug>
+<Sockets num-sockets="1">
+<BlockConnector con-block-id="204" connector-kind="socket" connector-type="number" init-type="number" label="" position-type="single"/>
+</Sockets>
+</Block>
+<Block genus-name="serial_available" id="204">
+<Location>
+<X>421</X>
+<Y>553</Y>
+</Location>
+<Plug>
+<BlockConnector con-block-id="206" connector-kind="plug" connector-type="number" init-type="number" label="" position-type="mirror"/>
+</Plug>
+</Block>
 <Block genus-name="wire_isread" id="109">
 <Location>
 <X>271</X>
@@ -18,6 +61,7 @@
 <Y>450</Y>
 </Location>
 <BeforeBlockId>116</BeforeBlockId>
+<AfterBlockId>207</AfterBlockId>
 <Sockets num-sockets="3">
 <BlockConnector con-block-id="109" connector-kind="socket" connector-type="boolean" init-type="boolean" label="test" position-type="single"/>
 <BlockConnector connector-kind="socket" connector-type="cmd" init-type="cmd" label="then" position-type="single"/>
