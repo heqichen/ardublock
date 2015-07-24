@@ -18,6 +18,6 @@ public class SerialAvailableBlock extends TranslatorBlock
 		
 		String ret = "Serial.available()";
 		
-		return ret;
+		return codePrefix + ret + codeSuffix;
 	}
 }
