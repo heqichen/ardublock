@@ -5021,6 +5021,7 @@
 				<BlockGenusMember>delay</BlockGenusMember>
 				<BlockGenusMember>delay_microseconds</BlockGenusMember>
 				<BlockGenusMember>millis</BlockGenusMember>
+				<BlockGenusMember>serial_available</BlockGenusMember>
 				<BlockGenusMember>serial_read</BlockGenusMember>
 				<BlockGenusMember>serial_println</BlockGenusMember>
 				<BlockGenusMember>glue_sn</BlockGenusMember>
