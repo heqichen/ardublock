@@ -22,7 +22,8 @@ public class WireReadBlock extends TranslatorBlock
 		Context context = translator.getContext();
 		if (context.getArduinoVersionString().equals(Context.ARDUINO_VERSION_UNKNOWN))
 		{
-			ret += "//Unable to dectect your Arduino version, using 1.0 in default\n";
+			//ret += "//Unable to dectect your Arduino version, using 1.0 in default\n";
+			System.err.println("//Unable to dectect your Arduino version, using 1.0 in default");
 		}
 		ret += "__ardublockI2cReadData( ";
 		TranslatorBlock tb = this.getRequiredTranslatorBlockAtSocket(0);
